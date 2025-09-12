@@ -1,6 +1,10 @@
 from tensorflow import keras
 import numpy as np
 
+from ConvLayer import ConvLayer
+from Model import Model
+
+
 def create_simple_model():
     model = keras.Sequential()
     model.add(keras.layers.Dense(256, input_shape=(784,)))
@@ -26,6 +30,13 @@ def create_conv_model():
                   metrics=['accuracy'])
 
     return model
+
+def create_custom_conv_model(input):
+    model = Model((200,200))
+
+    model.add(ConvLayer())
+
+    return model.process(input)
 
 if __name__ == "__main__":
     create_simple_model()

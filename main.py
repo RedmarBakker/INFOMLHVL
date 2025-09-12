@@ -6,7 +6,7 @@ matplotlib.use('TkAgg')
 import matplotlib.pyplot as plt
 import ssl
 import certifi
-from model import create_simple_model, create_conv_model
+from model_helper import create_simple_model, create_conv_model
 from data import create_simple_data, create_conv_data
 
 ssl._create_default_https_context = lambda: ssl.create_default_context(cafile=certifi.where())
