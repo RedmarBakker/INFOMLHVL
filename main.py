@@ -16,7 +16,6 @@ ssl._create_default_https_context = lambda: ssl.create_default_context(cafile=ce
 sample_image = x_train[0]
 sample_label = y_train[0]
 
-
 model_type = 'custom'
 
 if model_type == 'simpel':
@@ -123,7 +122,7 @@ elif model_type == 'custom':
     hor_ver_output = ConvLayer().add_filters([horizontal_kernel, vertical_kernel]).process(sample_image)
     ver_hor_output = ConvLayer().add_filters([vertical_kernel, horizontal_kernel]).process(sample_image)
 
-    relu_horizontal_output = relu(horizontal_output)
+    relu_horizontal_output = ReLULayer().process(vertical_output)
 
     # Plot the results
     plt.imshow(relu_horizontal_output, cmap="gray")  # grayscale colormap

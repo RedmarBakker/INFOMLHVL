@@ -1,7 +1,7 @@
 from tensorflow import keras
 import numpy as np
 
-from ConvLayer import ConvLayer
+from AllLayers import *
 from Model import Model
 
 
@@ -31,15 +31,15 @@ def create_conv_model():
 
     return model
 
-def create_custom_conv_model():
-    model = Model(input_shape=input.shape)
+def create_custom_conv_model(input_shape):
+    model = Model(input_shape=input_shape)
 
-    model.add(ConvLayer())
+    model.add(ConvLayer().add_filters(kernels))
+    model.add(ReLULayer())
 
     return model
 
-def relu(feature_map):
-    return np.maximum(feature_map, 0)
+
 
 if __name__ == "__main__":
     create_simple_model()

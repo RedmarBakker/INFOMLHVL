@@ -69,3 +69,8 @@ class ConvLayer:
                 output[i, j, :] = result
 
         return output
+
+class ReLULayer:
+
+    def process(self, input):
+        return np.maximum(0, input)
