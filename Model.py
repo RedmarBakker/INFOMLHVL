@@ -5,7 +5,7 @@ class Model:
 
     def __init__(self, input_shape):
         self.layers = []
-        # self.weights = []
+        self.weights = []
         self.input_shape = input_shape
 
     def add(self, layer):

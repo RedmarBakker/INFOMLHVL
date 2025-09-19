@@ -31,12 +31,12 @@ def create_conv_model():
 
     return model
 
-def create_custom_conv_model(input, kernels):
+def create_custom_conv_model():
     model = Model(input_shape=input.shape)
 
-    model.add(ConvLayer().add_filters(kernels))
+    model.add(ConvLayer())
 
-    return model.process(input)
+    return model
 
 def relu(feature_map):
     return np.maximum(feature_map, 0)
