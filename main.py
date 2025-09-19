@@ -118,14 +118,15 @@ elif model_type == 'custom':
     num_classes = 10
     model = create_custom_conv_model([horizontal_kernel], num_classes)
     output = model.process(sample_image)
-
+    print(np.argmax(output))
+    print(sample_label)
     # Plot the results
     # plt.plot(output, marker='o')  # line plot with dots
     # plt.title("Line plot of 1D array")
     # plt.xlabel("Index")
     # plt.ylabel("Value")
     # plt.show()
-    #
+    # #
     # plt.imshow(vertical_output, cmap="gray")  # grayscale colormap
     # plt.title(f"Label: {sample_label}")
     # plt.axis("off")  # hide axes
