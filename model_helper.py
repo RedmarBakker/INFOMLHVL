@@ -31,18 +31,19 @@ def create_conv_model():
 
     return model
 
-def create_custom_conv_model(input_shape):
-    model = Model(input_shape=input_shape)
+def create_custom_conv_model(kernels, num_outputs):
+    model = Model()
 
-    model.add(ConvLayer().add_filters())
+    model.add(ConvLayer().add_filters(kernels))
     model.add(ReLULayer())
+    model.add(MaxPoolingLayer(pool_size=(2, 2)))
+    model.add(NormalizeLayer())
+    model.add(FCLayer(num_outputs))
+    model.add
 
     return model
 
-def he_initialization(input, num_outputs):
-    num_inputs = input.size
-    std = np.sqrt(2 / num_inputs)
-    return np.random.randn(num_outputs, num_inputs) * std
+
 
 
 

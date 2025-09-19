@@ -110,19 +110,28 @@ class NormalizeLayer(Layer):
         std = input.std(axis=(0, 1))
 
         # Ensure std is not zero to avoid division by zero
-        std[std == 0] = 1
+        if np.isscalar(std):
+            std = np.array([std])
+        if np.any(std == 0):
+            std[std == 0] = 1
 
         return (input - mean) / std
 
 class FCLayer(Layer):
-    def __init__(self, weights):
-        self.weights = weights
+    def __init__(self, num_outputs):
+        self.num_outputs = num_outputs
 
     def process(self, input):
         # Flatten the input
         input_flat = input.reshape(-1)  # 1D array of length H*W*C
+        weights = self._he_initialization(input, self.num_outputs)
 
         # Fully connected: multiply weights with input vector
-        output = self.weights @ input_flat
+        output = weights @ input_flat
 
         return output
+
+    def _he_initialization(self, input, num_outputs):
+        num_inputs = input.size
+        std = np.sqrt(2 / num_inputs)
+        return np.random.randn(num_outputs, num_inputs) * std

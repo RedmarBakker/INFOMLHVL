@@ -6,8 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import ssl
 import certifi
-from model_helper import *
-from Model import Model
+from model_helper import create_custom_conv_model
 
 ssl._create_default_https_context = lambda: ssl.create_default_context(cafile=certifi.where())
 
@@ -116,15 +115,16 @@ elif model_type == 'custom':
          [-1, 2, -1],
          [-1, 2, -1]]
     )
-
-    model = create_custom_conv_model([horizontal_kernel])
+    num_classes = 10
+    model = create_custom_conv_model([horizontal_kernel], num_classes)
     output = model.process(sample_image)
 
     # Plot the results
-    plt.imshow(output, cmap="gray")  # grayscale colormap
-    plt.title(f"Label: {sample_label}")
-    plt.axis("off")  # hide axes
-    plt.show()
+    # plt.plot(output, marker='o')  # line plot with dots
+    # plt.title("Line plot of 1D array")
+    # plt.xlabel("Index")
+    # plt.ylabel("Value")
+    # plt.show()
     #
     # plt.imshow(vertical_output, cmap="gray")  # grayscale colormap
     # plt.title(f"Label: {sample_label}")
