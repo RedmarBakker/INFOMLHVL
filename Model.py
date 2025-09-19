@@ -1,12 +1,11 @@
-from ConvLayer import Layer
+from ConvLayer import ConvLayer
 
 
 class Model:
 
-    layers = []
-    weights = []
-
     def __init__(self, input_shape):
+        self.layers = []
+        # self.weights = []
         self.input_shape = input_shape
 
     def add(self, layer):
