@@ -85,3 +85,16 @@ class NormalizeLayer(Layer):
         std[std == 0] = 1
 
         return (input - mean) / std
+
+class FCLayer(Layer):
+    def __init__(self, weights):
+        self.weights = weights
+
+    def process(self, input):
+        # Flatten the input
+        input_flat = input.reshape(-1)  # 1D array of length H*W*C
+
+        # Fully connected: multiply weights with input vector
+        output = self.weights @ input_flat
+
+        return output

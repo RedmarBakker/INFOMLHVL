@@ -6,6 +6,7 @@ import numpy as np
 import matplotlib.pyplot as plt
 import ssl
 import certifi
+import sys
 from model_helper import *
 from Model import Model
 
@@ -117,9 +118,11 @@ elif model_type == 'custom':
          [-1, 2, -1]]
     )
 
-    # Different kernel configurations
+    # Initialize the model and arguments
     model = Model(input_shape=sample_image)
     kernels = [horizontal_kernel]
+    num_classes = 10
+    weights = he_initialization(sample_image, num_classes)
 
     model.add(ConvLayer().add_filters(kernels))
     model.add(ReLULayer())

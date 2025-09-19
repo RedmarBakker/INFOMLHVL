@@ -34,10 +34,15 @@ def create_conv_model():
 def create_custom_conv_model(input_shape):
     model = Model(input_shape=input_shape)
 
-    model.add(ConvLayer().add_filters(kernels))
+    model.add(ConvLayer().add_filters())
     model.add(ReLULayer())
 
     return model
+
+def he_initialization(input, num_outputs):
+    num_inputs = input.size
+    std = np.sqrt(2 / num_inputs)
+    return np.random.randn(num_outputs, num_inputs) * std
 
 
 
