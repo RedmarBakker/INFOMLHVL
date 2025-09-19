@@ -1,4 +1,4 @@
-from ConvLayer import ConvLayer
+from AllLayers import ConvLayer
 
 
 class Model:

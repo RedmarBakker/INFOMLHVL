@@ -40,11 +40,8 @@ hor_ver_output = create_custom_conv_model(input=sample_image,
 ver_hor_output = create_custom_conv_model(input=sample_image,
                                   kernels=[vertical_kernel, horizontal_kernel])
 
-relu_horizontal_output = relu(horizontal_output)
-
-
 # Plot the results
-plt.imshow(relu_horizontal_output, cmap="gray")  # grayscale colormap
+plt.imshow(horizontal_output, cmap="gray")  # grayscale colormap
 plt.title(f"Label: {sample_label}")
 plt.axis("off")  # hide axes
 plt.show()
