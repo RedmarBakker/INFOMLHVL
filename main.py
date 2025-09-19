@@ -13,8 +13,6 @@ ssl._create_default_https_context = lambda: ssl.create_default_context(cafile=ce
 
 # Get data
 (x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
-sample_image = x_train[0]
-sample_label = y_train[0]
 
 model_type = 'custom'
 
@@ -102,7 +100,11 @@ elif model_type == 'conv':
     plt.show()
 
 elif model_type == 'custom':
+    # Input
+    sample_image = x_train[0]
+    sample_label = y_train[0]
 
+    # Define kernels
     horizontal_kernel = np.array(
         [[-1, -1, -1],
          [2, 2, 2],
@@ -116,16 +118,17 @@ elif model_type == 'custom':
     )
 
     # Different kernel configurations
-    horizontal_output = ConvLayer().add_filters([horizontal_kernel]).process(sample_image)
-    vertical_output = ConvLayer().add_filters([vertical_kernel]).process(sample_image)
+    model = Model(input_shape=sample_image)
+    kernels = [horizontal_kernel]
 
-    hor_ver_output = ConvLayer().add_filters([horizontal_kernel, vertical_kernel]).process(sample_image)
-    ver_hor_output = ConvLayer().add_filters([vertical_kernel, horizontal_kernel]).process(sample_image)
+    model.add(ConvLayer().add_filters(kernels))
+    model.add(ReLULayer())
+    model.add(NormalizeLayer())
 
-    relu_horizontal_output = ReLULayer().process(vertical_output)
+    output = model.process(sample_image)
 
     # Plot the results
-    plt.imshow(relu_horizontal_output, cmap="gray")  # grayscale colormap
+    plt.imshow(output, cmap="gray")  # grayscale colormap
     plt.title(f"Label: {sample_label}")
     plt.axis("off")  # hide axes
     plt.show()

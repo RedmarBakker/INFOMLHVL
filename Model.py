@@ -1,6 +1,4 @@
-from AllLayers import ConvLayer
-
-
+from Layer import Layer
 class Model:
 
     def __init__(self, input_shape):
@@ -8,7 +6,7 @@ class Model:
         self.weights = []
         self.input_shape = input_shape
 
-    def add(self, layer):
+    def add(self, layer:Layer):
         self.layers.append(layer)
 
     def process(self, input):

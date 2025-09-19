@@ -1,6 +1,7 @@
 import numpy as np
+from Layer import Layer
 
-class ConvLayer:
+class ConvLayer(Layer):
 
     def __init__(self, filters=None, stride=(1, 1)):
         if filters is None:
@@ -70,7 +71,17 @@ class ConvLayer:
 
         return output
 
-class ReLULayer:
-
+class ReLULayer(Layer):
     def process(self, input):
         return np.maximum(0, input)
+
+class NormalizeLayer(Layer):
+    def process(self, input):
+        # Normalize for each channel using axis=(0, 1)
+        mean = input.mean(axis=(0, 1))
+        std = input.std(axis=(0, 1))
+
+        # Ensure std is not zero to avoid division by zero
+        std[std == 0] = 1
+
+        return (input - mean) / std
