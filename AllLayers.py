@@ -114,16 +114,6 @@ class NormalizeLayer(Layer):
 
         return (input - mean) / std
 
-class FlattenLayer(Layer):
-    def process(self, input):
-        result = 1
-
-        for dim in input.shape:
-            result *= dim
-
-        return input.reshape(result)
-
-
 class SoftmaxLayer(Layer):
     def process(self, input):
         assert input.ndim == 1

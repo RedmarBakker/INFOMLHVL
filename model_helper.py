@@ -38,7 +38,6 @@ def create_custom_conv_model(kernels):
     model.add(ReLULayer())
     model.add(NormalizeLayer())
     model.add(MaxPoolingLayer((2,2)))
-    model.add(FlattenLayer())
     model.add(FCLayer())
     model.add(SoftmaxLayer())
 
