@@ -1,8 +1,12 @@
 import numpy as np
+from Layer import Layer
 
+<<<<<<< HEAD
 from Layer import Layer
 
 
+=======
+>>>>>>> 1d946ebd3a2c46fadcdc3ec45f35e4aa9ac661f0
 class ConvLayer(Layer):
 
     def __init__(self, filters=None, stride=(1, 1)):
@@ -74,12 +78,11 @@ class ConvLayer(Layer):
         return output
 
 class ReLULayer(Layer):
-
     def process(self, input: np.ndarray) -> np.ndarray:
         return np.maximum(0, input)
 
 class MaxPoolingLayer(Layer):
-    def __init__(self, pool_size=(2, 2), stride=None):
+    def __init__(self, pool_size, stride=None):
         self.pool_size = pool_size
         self.stride = stride if stride is not None else pool_size
 
@@ -105,3 +108,14 @@ class MaxPoolingLayer(Layer):
             return output.squeeze()
 
         return output
+
+class NormalizeLayer(Layer):
+    def process(self, input):
+        # Normalize for each channel using axis=(0, 1)
+        mean = input.mean(axis=(0, 1))
+        std = input.std(axis=(0, 1))
+
+        # Ensure std is not zero to avoid division by zero
+        std[std == 0] = 1
+
+        return (input - mean) / std

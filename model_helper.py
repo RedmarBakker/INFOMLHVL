@@ -36,7 +36,8 @@ def create_custom_conv_model(kernels):
 
     model.add(ConvLayer().add_filters(kernels))
     model.add(ReLULayer())
-    model.add(MaxPoolingLayer())
+    model.add(NormalizeLayer())
+    model.add(MaxPoolingLayer((2,2)))
 
     return model
 

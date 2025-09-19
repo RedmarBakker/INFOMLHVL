@@ -13,8 +13,6 @@ ssl._create_default_https_context = lambda: ssl.create_default_context(cafile=ce
 
 # Get data
 (x_train, y_train), (x_test, y_test) = keras.datasets.mnist.load_data()
-sample_image = x_train[0]
-sample_label = y_train[0]
 
 model_type = 'custom'
 
@@ -102,7 +100,11 @@ elif model_type == 'conv':
     plt.show()
 
 elif model_type == 'custom':
+    # Input
+    sample_image = x_train[0]
+    sample_label = y_train[0]
 
+    # Define kernels
     horizontal_kernel = np.array(
         [[-1, -1, -1],
          [2, 2, 2],
@@ -114,15 +116,6 @@ elif model_type == 'custom':
          [-1, 2, -1],
          [-1, 2, -1]]
     )
-
-    # Different kernel configurations
-    horizontal_output = ConvLayer().add_filters([horizontal_kernel]).process(sample_image)
-    vertical_output = ConvLayer().add_filters([vertical_kernel]).process(sample_image)
-
-    hor_ver_output = ConvLayer().add_filters([horizontal_kernel, vertical_kernel]).process(sample_image)
-    ver_hor_output = ConvLayer().add_filters([vertical_kernel, horizontal_kernel]).process(sample_image)
-
-    relu_horizontal_output = ReLULayer().process(vertical_output)
 
     model = create_custom_conv_model([horizontal_kernel, vertical_kernel])
     output = model.process(sample_image)

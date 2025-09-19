@@ -1,7 +1,6 @@
 from AllLayers import ConvLayer
 from Layer import Layer
 
-
 class Model:
 
     def __init__(self):
