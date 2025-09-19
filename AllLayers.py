@@ -1,12 +1,6 @@
 import numpy as np
 from Layer import Layer
 
-<<<<<<< HEAD
-from Layer import Layer
-
-
-=======
->>>>>>> 1d946ebd3a2c46fadcdc3ec45f35e4aa9ac661f0
 class ConvLayer(Layer):
 
     def __init__(self, filters=None, stride=(1, 1)):
@@ -119,3 +113,20 @@ class NormalizeLayer(Layer):
         std[std == 0] = 1
 
         return (input - mean) / std
+
+class FlattenLayer(Layer):
+    def process(self, input):
+        result = 1
+
+        for dim in input.shape:
+            result *= dim
+
+        return input.reshape(result)
+
+
+class SoftmaxLayer(Layer):
+    def process(self, input):
+        assert input.ndim == 1
+
+        exps = np.exp(input - np.max(input, axis=-1, keepdims=True))
+        return exps / np.sum(exps, axis=-1, keepdims=True)

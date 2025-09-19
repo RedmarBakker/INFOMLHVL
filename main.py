@@ -117,7 +117,7 @@ elif model_type == 'custom':
          [-1, 2, -1]]
     )
 
-    model = create_custom_conv_model([horizontal_kernel, vertical_kernel])
+    model = create_custom_conv_model([horizontal_kernel])
     output = model.process(sample_image)
 
     # Plot the results
