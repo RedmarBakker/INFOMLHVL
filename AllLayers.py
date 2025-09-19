@@ -75,6 +75,34 @@ class ReLULayer(Layer):
     def process(self, input):
         return np.maximum(0, input)
 
+class MaxPoolingLayer(Layer):
+    def __init__(self, pool_size, stride=None):
+        self.pool_size = pool_size
+        self.stride = stride if stride is not None else pool_size
+
+    def process(self, input: np.ndarray) -> np.ndarray:
+        if input.ndim == 2:
+            input = input.reshape(input.shape[0], input.shape[1], 1)
+
+        H, W, D = input.shape
+        ph, pw = self.pool_size
+        sh, sw = self.stride
+
+        out_h = (H - ph) // sh + 1
+        out_w = (W - pw) // sw + 1
+        output = np.zeros((out_h, out_w, D))
+
+        for d in range(D):
+            for i in range(out_h):
+                for j in range(out_w):
+                    region = input[i*sh:i*sh+ph, j*sw:j*sw+pw, d]
+                    output[i, j, d] = np.max(region)
+
+        if output.shape[-1] == 1:
+            return output.squeeze()
+
+        return output
+
 class NormalizeLayer(Layer):
     def process(self, input):
         # Normalize for each channel using axis=(0, 1)
