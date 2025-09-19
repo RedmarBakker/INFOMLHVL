@@ -31,15 +31,14 @@ def create_conv_model():
 
     return model
 
-def create_custom_conv_model(input_shape):
-    model = Model(input_shape=input_shape)
+def create_custom_conv_model(kernels):
+    model = Model()
 
     model.add(ConvLayer().add_filters(kernels))
     model.add(ReLULayer())
+    model.add(MaxPoolingLayer())
 
     return model
-
-
 
 if __name__ == "__main__":
     create_simple_model()

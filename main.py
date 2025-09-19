@@ -124,8 +124,11 @@ elif model_type == 'custom':
 
     relu_horizontal_output = ReLULayer().process(vertical_output)
 
+    model = create_custom_conv_model([horizontal_kernel, vertical_kernel])
+    output = model.process(sample_image)
+
     # Plot the results
-    plt.imshow(relu_horizontal_output, cmap="gray")  # grayscale colormap
+    plt.imshow(output, cmap="gray")  # grayscale colormap
     plt.title(f"Label: {sample_label}")
     plt.axis("off")  # hide axes
     plt.show()
