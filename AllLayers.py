@@ -135,3 +135,10 @@ class FCLayer(Layer):
         num_inputs = input.size
         std = np.sqrt(2 / num_inputs)
         return np.random.randn(num_outputs, num_inputs) * std
+
+class SoftmaxLayer(Layer):
+    def process(self, input):
+        assert input.ndim == 1
+
+        exps = np.exp(input - np.max(input, axis=-1, keepdims=True))
+        return exps / np.sum(exps, axis=-1, keepdims=True)

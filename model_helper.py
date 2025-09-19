@@ -39,7 +39,7 @@ def create_custom_conv_model(kernels, num_outputs):
     model.add(MaxPoolingLayer(pool_size=(2, 2)))
     model.add(NormalizeLayer())
     model.add(FCLayer(num_outputs))
-    model.add
+    model.add(SoftmaxLayer())
 
     return model
 
