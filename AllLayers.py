@@ -140,5 +140,5 @@ class SoftmaxLayer(Layer):
     def process(self, input):
         assert input.ndim == 1
 
-        exps = np.exp(input - np.max(input, axis=-1, keepdims=True))
+        exps = np.exp(input)
         return exps / np.sum(exps, axis=-1, keepdims=True)
